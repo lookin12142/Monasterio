@@ -1,0 +1,29 @@
+services:
+
+  backend:
+    build: ./backend
+    environment:
+      PG_USER: ${PG_USER}
+      PG_PASSWORD: ${PG_PASSWORD}
+      PG_NAME: ${PG_NAME}
+      PG_HOST: postgres
+      SECRET_KEY: ${SECRET_KEY}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+    depends_on:
+      - postgres
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    restart: always
+
+  postgres:
+    image: postgres:17-alpine3.20
+    environment:
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_DB=${PG_NAME}
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
