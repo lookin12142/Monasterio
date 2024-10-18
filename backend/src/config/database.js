@@ -20,6 +20,7 @@ const sequelize = new Sequelize(
     }
   }
 );
+import '../models/usermodel.js';
 
 export const connectDb = async () => {
   try {
