@@ -11,7 +11,7 @@ const createAdmin = async () => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const [admin, created] = await User.findOrCreate({
+    const [created] = await User.findOrCreate({
       where: { email },
       defaults: {
         name: 'Admin',

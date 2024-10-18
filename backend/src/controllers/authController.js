@@ -19,7 +19,7 @@ export const login = async (req, res) => {
     const payload = {
       user: {
         id: user.id,
-        isAdmin: user.isAdmin
+        isadmin: user.isadmin
       }
     };
 
@@ -29,6 +29,7 @@ export const login = async (req, res) => {
       { expiresIn: '1h' },
       (err, token) => {
         if (err) throw err;
+        console.log('Token generado:', token);
         res.json({ token });
       }
     );

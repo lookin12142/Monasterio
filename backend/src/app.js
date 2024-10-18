@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import './models/usermodel.js';
 import { connectDb } from './config/database.js';
 import routesLoader from './routes/loader.js';
 import createAdmin from './config/createAdmin.js';
