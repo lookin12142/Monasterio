@@ -29,3 +29,41 @@ export const createUser = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
+export const getUsers = async (req, res) => {
+  try {
+    const users = await User.findAll();
+    res.json(users);
+  } catch (error) {
+    console.error('Error al obtener usuarios:', error);
+    res.status(500).json({ message: 'Error al obtener usuarios' });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    await User.destroy({ where: { id: userId } });
+    res.json({ message: 'Usuario eliminado' });
+  } catch (error) {
+    console.error('Error al eliminar usuario:', error);
+    res.status(500).json({ message: 'Error al eliminar usuario' });
+  }
+};
+
+export const updateUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const updatedData = req.body;
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+    await user.update(updatedData);
+    res.json({ message: 'Permisos actualizados', user });
+  } catch (error) {
+    console.error('Error al actualizar permisos de usuario:', error);
+    res.status(500).json({ message: 'Error al actualizar permisos de usuario' });
+  }
+};
+
