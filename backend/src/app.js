@@ -5,11 +5,12 @@ import './models/usermodel.js';
 import { connectDb } from './config/database.js';
 import routesLoader from './routes/loader.js';
 import createAdmin from './config/createAdmin.js';
+import errorHandler from './middleware/errorMiddleware.js';
 
 dotenv.config();
 
 const app = express();
-
+app.use(errorHandler);
 app.use(cors());
 app.use(express.json());
 
