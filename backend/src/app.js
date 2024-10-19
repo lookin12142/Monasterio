@@ -14,7 +14,7 @@ app.use(errorHandler);
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.API_PORT || 3005;
 
 connectDb().then(() => {
   createAdmin();
