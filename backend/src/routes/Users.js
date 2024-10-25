@@ -9,7 +9,7 @@ router.get('/', auth, getUsers);
 
 router.delete('/:id', auth, deleteUser);
 
-router.put('/:id', auth, updateUser);
+router.patch('/:id', auth, updateUser);
 
 
 export default router;
