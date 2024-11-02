@@ -4,6 +4,8 @@
 
 :root {
   --background: #f2f2f2;
+  --primary-color: #ff5f5f; /* ejemplo para texto o detalles */
+  --secondary-color: #ffffff; /* ejemplo para fondo de cada cuadro */
 }
 
 body {
