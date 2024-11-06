@@ -2,6 +2,8 @@
 services:
   frontend:
     build: ./frontend
+    environment:
+      NEXT_PUBLIC_API_PORT: ${NEXT_PUBLIC_API_PORT}
     ports:
       - "3000:3000"
     restart: always
@@ -20,12 +22,12 @@ services:
       SECRET_KEY: ${SECRET_KEY}
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
-      API_PORT: ${API_PORT}
+      API_PORT: ${NEXT_PUBLIC_API_PORT}
     depends_on:
       postgres:
         condition: service_healthy
     ports:
-      - "${API_PORT}:${API_PORT}"
+      - "${NEXT_PUBLIC_API_PORT}:${NEXT_PUBLIC_API_PORT}"
     restart: always
     networks:
       - app-network
@@ -41,8 +43,6 @@ services:
       - "5432:5432"
     networks:
       - app-network
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${PG_USER} -d ${PG_NAMEDB}"]
       interval: 10s
