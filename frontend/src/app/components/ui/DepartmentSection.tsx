@@ -1,4 +1,4 @@
-// components/DepartmentSection.tsx
+
 "use client";
 import Image from "next/image";
 
