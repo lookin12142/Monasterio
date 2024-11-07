@@ -1,11 +1,15 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import './models/usermodel.js';
 import { connectDb } from './config/database.js';
 import routesLoader from './routes/loader.js';
 import createAdmin from './config/createAdmin.js';
 import errorHandler from './middleware/errorMiddleware.js';
+
+import './models/usermodel.js';
+import './models/productmodel.js';
+import './models/incomemodel.js';
+import './models/egressmodel.js';
 
 dotenv.config();
 
