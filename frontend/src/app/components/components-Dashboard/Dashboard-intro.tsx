@@ -1,15 +1,17 @@
 "use client";
+import React from 'react';
+import DepartmentSection from "../../components/components-Dashboard/DepartmentSection";
+import { useAuth } from '@/app/context/authcontext';
 
-import Header from "../components/ui/Header";
-import DepartmentSection from "../components/ui/DepartmentSection";
+const Home: React.FC = () => {
+  const { user } = useAuth();
 
-export default function Home() {
   return (
     <div>
-      <Header />
       <main className="p-8 bg-gray-100">
-        <h2 className="text-xl font-semibold mb-6 text-center">¡BIENVENIDO RICARDO!</h2>
-
+        <h2 className="text-xl font-semibold mb-6 text-center">
+          ¡BIENVENIDO {user ? user.name.toUpperCase() : "USUARIO"}!
+        </h2>
         <DepartmentSection title="Departamento Administrativo" items={[
           { name: "Usuarios", icon: "usuarioicon1.png" }
         ]} />
@@ -28,4 +30,6 @@ export default function Home() {
       </main>
     </div>
   );
-}
+};
+
+export default Home;

@@ -1,10 +1,11 @@
+
 'use client'
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Mail, Lock } from 'lucide-react'
-import { useApi } from '@/app/context/authcontext'
+import { useAuth } from '@/app/context/authcontext'
 
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
@@ -12,7 +13,7 @@ import { Label } from '../ui/label'
 import { Card, CardContent } from '../ui/card'
 
 export default function Component() {
-  const { login } = useApi()
+  const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -23,7 +24,7 @@ export default function Component() {
     try {
       await login(email, password)
       setError('')
-      router.push('/Dashboard')
+      router.push('/pages/dashboard')
     } catch (error) {
       setError('Contraseña o usuario incorrecto')
       console.error('Login error:', error)

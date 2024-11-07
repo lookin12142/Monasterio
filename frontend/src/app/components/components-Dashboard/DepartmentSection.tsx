@@ -1,5 +1,6 @@
-
 "use client";
+
+import { useRouter } from 'next/navigation'; 
 import Image from "next/image";
 
 type DepartmentItem = {
@@ -13,6 +14,15 @@ type DepartmentSectionProps = {
 };
 
 const DepartmentSection = ({ title, items }: DepartmentSectionProps) => {
+  const router = useRouter(); 
+
+  const handleItemClick = (name: string) => {
+    if (name === "Usuarios") {
+      router.push('/pages/dashboard/users'); 
+    }
+
+  };
+
   return (
     <section className="my-8">
       <h3 className="text-lg font-semibold mb-4">{title}</h3>
@@ -20,9 +30,10 @@ const DepartmentSection = ({ title, items }: DepartmentSectionProps) => {
         {items.map((item, index) => (
           <div
             key={index}
-            className={`flex flex-col items-center justify-center w-48 h-32 p-4 bg-white rounded-lg shadow-md ${
+            className={`flex flex-col items-center justify-center w-48 h-32 p-4 bg-white rounded-lg shadow-md cursor-pointer ${
               index === 0 && items.length === 1 ? "col-span-full" : ""
             }`}
+            onClick={() => handleItemClick(item.name)}
           >
             <Image src={`/${item.icon}`} alt={item.name} width={40} height={40} />
             <p className="mt-2 font-medium text-red-600">{item.name}</p>

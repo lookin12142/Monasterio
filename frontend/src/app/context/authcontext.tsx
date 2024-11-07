@@ -1,19 +1,9 @@
 "use client";
 import React, { createContext, useContext, useState, ReactNode, FC } from 'react';
 import api from '@/app/api/client';
+import { User } from '@/app/lib/interfaces';
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  phonenumber: string;
-  isadmin: boolean;
-  modules: [];
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface ApiContextProps {
+export interface ApiContextProps {
   user: User | null;
   login: (username: string, password: string) => Promise<void>;
   createUser: (userData: Omit<User, 'id' | 'createdAt' | 'updatedAt'>) => Promise<User>;
@@ -22,7 +12,7 @@ interface ApiContextProps {
   updateUser: (userId: number, userData: Partial<User>) => Promise<User>;
 }
 
-const ApiContext = createContext<ApiContextProps | undefined>(undefined);
+export const AuthContext = createContext<ApiContextProps | undefined>(undefined);
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -79,16 +69,16 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   return (
-    <ApiContext.Provider value={{ user, login, createUser, deleteUser, getUsers, updateUser }}>
+    <AuthContext.Provider value={{ user, login, createUser, deleteUser, getUsers, updateUser }}>
       {children}
-    </ApiContext.Provider>
+    </AuthContext.Provider>
   );
 };
 
-export const useApi = () => {
-  const context = useContext(ApiContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useApi must be used within an ApiProvider');
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 };

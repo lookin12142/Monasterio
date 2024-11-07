@@ -6,7 +6,7 @@ import { connectDb } from './config/database.js';
 import routesLoader from './routes/loader.js';
 import createAdmin from './config/createAdmin.js';
 import errorHandler from './middleware/errorMiddleware.js';
-
+import './models/usermodel.js';
 dotenv.config();
 
 const app = express();

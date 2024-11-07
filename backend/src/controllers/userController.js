@@ -3,12 +3,12 @@ import {Op } from 'sequelize';
 import User from '../models/usermodel.js';
 
 export const createUser = async (req, res) => {
-  const { name, phonenumber, dni, email, password, modules } = req.body;
+  const { name, phonenumber, dni, email, password, modules, isadmin } = req.body;
   try {
-    let user = await User.findOne({ 
-      where: { 
-        [Op.or]: [{ email }, { dni }]
-      } 
+    let user = await User.findOne({
+      where: {
+        [Op.or]: [{ email }, { dni }],
+      },
     });
     if (user) {
       return res.status(400).json({ message: 'User already exists' });
@@ -21,14 +21,22 @@ export const createUser = async (req, res) => {
       dni,
       email,
       password: hashedPassword,
-      modules
+      modules: modules || {
+        ventas: { access: false, reposteria: false, manualidades: false },
+        alquiler: { access: false, santaCatalina: false, santaTeresa: false, goyoneche: false },
+        monasterio: { access: false },
+        museo: { access: false },
+        administrador: { access: false, reposteria: false, manualidades: false, misa: false },
+      },
+      isadmin: isadmin || false,
     });
-    res.status(201).json({ message: 'User created successfully' });
+    res.status(201).json({ message: 'User created successfully', user });
   } catch (err) {
     console.error('Error creating user:', err);
     res.status(500).send('Server error');
   }
 };
+
 
 export const getUsers = async (req, res) => {
   try {

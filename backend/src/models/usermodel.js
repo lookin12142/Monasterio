@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
 
-const User = sequelize.define('User', {
+const User = sequelize.define('user', {
   name: {
     type: DataTypes.STRING,
     allowNull: false
