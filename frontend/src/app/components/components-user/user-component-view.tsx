@@ -70,70 +70,50 @@ const UserList: React.FC = () => {
         </Button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-  {users.map((user) => (
-    <Card key={user.id} className="hover:shadow-lg transition-shadow duration-300">
-      <CardHeader className="bg-red-50">
-        <CardTitle className="flex items-center text-red-600">
-          <UserIcon className="mr-2 h-5 w-5" />
-          {user.name}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="pt-4">
-        <p className="text-sm text-gray-600 mb-1">
-          <strong>Email:</strong> {user.email}
-        </p>
-        <p className="text-sm text-gray-600 mb-1">
-          <strong>Teléfono:</strong> {user.phonenumber}
-        </p>
-        <p className="text-sm text-gray-600">
-          <strong>DNI:</strong> {user.dni}
-        </p>
-      </CardContent>
-      <div className="flex justify-end mt-4">
-        <Button
-          onClick={() => {
-            setSelectedUser(user);
-            setUserModalOpen(true);
-          }}
-          className="bg-blue-600 hover:bg-blue-700 mr-2"
-        >
-          Editar
-        </Button>
-        <Button
-          onClick={() => {
-            setSelectedUser(user);
-            setDeleteUserModalOpen(true);
-          }}
-          className="bg-red-600 hover:bg-red-700"
-        >
-          Eliminar
-        </Button>
+        {users.map((user) => (
+          <Card key={user.id} className="hover:shadow-lg transition-shadow duration-300">
+            <CardHeader className="bg-red-50">
+              <CardTitle className="flex items-center text-red-600">
+                <UserIcon className="mr-2 h-5 w-5" />
+                {user.name}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4">
+              <p className="text-sm text-gray-600 mb-1">
+                <strong>Email:</strong> {user.email}
+              </p>
+              <p className="text-sm text-gray-600 mb-1">
+                <strong>Teléfono:</strong> {user.phonenumber}
+              </p>
+              <p className="text-sm text-gray-600">
+                <strong>DNI:</strong> {user.dni}
+              </p>
+            </CardContent>
+            <div className="flex justify-end mt-4">
+              <Button onClick={() => { setSelectedUser(user); setUserModalOpen(true); }} className="bg-blue-600 hover:bg-blue-700 mr-2">
+                Editar
+              </Button>
+              <Button onClick={() => { setSelectedUser(user); setDeleteUserModalOpen(true); }} className="bg-red-600 hover:bg-red-700">
+                Eliminar
+              </Button>
+            </div>
+          </Card>
+        ))}
       </div>
-    </Card>
-  ))}
-    </div>
       <Modal
         isOpen={isModalOpen}
-        onClose={() => {
-          setModalOpen(false);
-        }}
+        onClose={() => setModalOpen(false)}
         onSubmit={handleCreateUser}
       />
       <UserModal
         isOpen={isUserModalOpen}
-        onClose={() => {
-          setSelectedUser(null);
-          setUserModalOpen(false);
-        }}
+        onClose={() => { setSelectedUser(null); setUserModalOpen(false); }}
         user={selectedUser}
         onUpdate={handleUpdateUser}
       />
       <DeleteUserModal
         isOpen={deleteUserModalOpen}
-        onClose={() => {
-          setSelectedUser(null);
-          setDeleteUserModalOpen(false);
-        }}
+        onClose={() => { setSelectedUser(null); setDeleteUserModalOpen(false); }}
         user={selectedUser}
         onDelete={handleDeleteUser}
       />

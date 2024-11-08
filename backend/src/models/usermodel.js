@@ -34,11 +34,9 @@ const User = sequelize.define('user', {
   modules: {
     type: DataTypes.JSONB,
     defaultValue: {
-      ventas: { access: false, reposteria: false, manualidades: false },
-      alquiler: { access: false, santaCatalina: false, santaTeresa: false, goyoneche: false },
-      monasterio: { access: false },
-      museo: { access: false },
-      administrador: { access: false, reposteria: false, manualidades: false, misa: false }
+      administrativo: { access: false },
+      ventas: { access: false, reposteria: false, manualidades: false, misa: false },
+      alquileres: { access: false, santaCatalina: false, goyoneche: false, santaMarta: false }
     }
   }
 });

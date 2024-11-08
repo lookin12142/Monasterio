@@ -1,6 +1,6 @@
 import Product from '../models/productmodel.js';
 
-// Crear un nuevo producto
+
 export const createProduct = async (req, res) => {
   const { type } = req.params;
   const { name, stock, unit_price } = req.body;
@@ -13,7 +13,6 @@ export const createProduct = async (req, res) => {
   }
 };
 
-// Obtener todos los productos de un tipo específico
 export const getProducts = async (req, res) => {
   const { type } = req.params;
 
@@ -25,7 +24,6 @@ export const getProducts = async (req, res) => {
   }
 };
 
-// Eliminar un producto específico
 export const deleteProduct = async (req, res) => {
   const { type, id } = req.params;
 
@@ -41,7 +39,7 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
-// Actualizar un producto específico
+
 export const updateProduct = async (req, res) => {
   const { type, id } = req.params;
   const { name, stock, unit_price } = req.body;

@@ -1,7 +1,6 @@
 import Income from '../models/incomemodel.js';
 import Product from '../models/productmodel.js';
 
-// Crear un nuevo ingreso
 export const createIncome = async (req, res) => {
   const { type } = req.params;
   const { id_producto, amount, total_price } = req.body;
@@ -19,7 +18,6 @@ export const createIncome = async (req, res) => {
   }
 };
 
-// Obtener todos los ingresos de un tipo específico
 export const getIncomes = async (req, res) => {
   const { type } = req.params;
 
@@ -34,7 +32,6 @@ export const getIncomes = async (req, res) => {
   }
 };
 
-// Eliminar un ingreso específico
 export const deleteIncome = async (req, res) => {
   const { type, id } = req.params;
 
@@ -50,7 +47,6 @@ export const deleteIncome = async (req, res) => {
   }
 };
 
-// Actualizar un ingreso específico
 export const updateIncome = async (req, res) => {
   const { type, id } = req.params;
   const { amount, total_price } = req.body;

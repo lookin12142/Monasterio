@@ -22,11 +22,9 @@ export const createUser = async (req, res) => {
       email,
       password: hashedPassword,
       modules: modules || {
-        ventas: { access: false, reposteria: false, manualidades: false },
-        alquiler: { access: false, santaCatalina: false, santaTeresa: false, goyoneche: false },
-        monasterio: { access: false },
-        museo: { access: false },
-        administrador: { access: false, reposteria: false, manualidades: false, misa: false },
+        administrativo: { access: false },
+        ventas: { access: false, reposteria: false, manualidades: false, misa: false },
+        alquileres: { access: false, santaCatalina: false, goyoneche: false, santaMarta: false }
       },
       isadmin: isadmin || false,
     });

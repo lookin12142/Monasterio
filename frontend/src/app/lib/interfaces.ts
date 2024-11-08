@@ -1,3 +1,23 @@
+// interfaces/interfaces.ts
+
+export type ModuleKeys = 'administrativo' | 'ventas' | 'alquileres';
+
+export interface Modules {
+  administrativo: {
+    usersgroups: boolean;
+  };
+  ventas: {
+    misa: boolean; 
+    reposteria: boolean;
+    manualidades: boolean; 
+  };
+  alquileres: {
+    santaCatalina: boolean; 
+    goyoneche: boolean; 
+    santaMarta: boolean; 
+  };
+}
+
 export interface User {
   id: number;
   name: string;
@@ -5,31 +25,7 @@ export interface User {
   dni: string;
   email: string;
   isadmin: boolean;
-  modules: {
-    ventas: {
-      access: boolean;
-      reposteria: boolean;
-      manualidades: boolean;
-    };
-    alquiler: {
-      access: boolean;
-      santaCatalina: boolean;
-      santaTeresa: boolean;
-      goyoneche: boolean;
-    };
-    monasterio: {
-      access: boolean;
-    };
-    museo: {
-      access: boolean;
-    };
-    administrador: {
-      access: boolean;
-      reposteria: boolean;
-      manualidades: boolean;
-      misa: boolean;
-    };
-  };
+  modules: Modules; 
   createdAt?: string;
   updatedAt?: string;
 }

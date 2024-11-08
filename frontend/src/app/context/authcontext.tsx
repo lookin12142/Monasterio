@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useState, ReactNode, FC } from 'react';
 import api from '@/app/api/client';
 import { User } from '@/app/lib/interfaces';
+import { Modules, ModuleKeys } from '@/app/lib/interfaces';
 
 export interface ApiContextProps {
   user: User | null;
@@ -10,12 +11,30 @@ export interface ApiContextProps {
   deleteUser: (identifier: string | number) => Promise<void>;
   getUsers: () => Promise<User[]>;
   updateUser: (userId: number, userData: Partial<User>) => Promise<User>;
+  modules: Modules;
+  handleModuleChange: (module: ModuleKeys, permission: keyof Modules[ModuleKeys]) => void;
 }
 
 export const AuthContext = createContext<ApiContextProps | undefined>(undefined);
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+
+  const [modules, setModules] = useState<Modules>({
+    administrativo: { usersgroups: false },
+    ventas: {  misa: false, reposteria: false, manualidades: false},
+    alquileres: { santaCatalina: false, goyoneche: false, santaMarta: false },
+  });
+
+  const handleModuleChange = (module: ModuleKeys, permission: keyof Modules[ModuleKeys]) => {
+    setModules((prevModules) => ({
+      ...prevModules,
+      [module]: {
+        ...prevModules[module],
+        [permission]: !prevModules[module][permission],
+      },
+    }));
+  };
 
   const login = async (email: string, password: string): Promise<void> => {
     try {
@@ -28,6 +47,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
       throw error;
     }
   };
+
 
   const createUser = async (userData: Omit<User, 'id' | 'createdAt' | 'updatedAt'>): Promise<User> => {
     try {
@@ -69,7 +89,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, createUser, deleteUser, getUsers, updateUser }}>
+    <AuthContext.Provider value={{ user, login, createUser, deleteUser, getUsers, updateUser, modules, handleModuleChange }}>
       {children}
     </AuthContext.Provider>
   );

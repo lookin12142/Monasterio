@@ -17,10 +17,31 @@ const DepartmentSection = ({ title, items }: DepartmentSectionProps) => {
   const router = useRouter(); 
 
   const handleItemClick = (name: string) => {
-    if (name === "Usuarios") {
-      router.push('/pages/dashboard/users'); 
+    switch (name) {
+      case "Usuarios":
+        router.push('/pages/dashboard/users');
+        break;
+      case "Repostería":
+        router.push('/pages/dashboard/reposteria');
+        break;
+      case "Manualidades":
+        router.push('/pages/dashboard/manualidades');
+        break;
+      case "Misa":
+        router.push('/pages/dashboard/misa');
+        break;
+      case "Santa Catalina":
+        router.push('/pages/dashboard/santa-catalina');
+        break;
+      case "Goyeneche":
+        router.push('/pages/dashboard/goyoneche');
+        break;
+      case "Santa Marta":
+        router.push('/pages/dashboard/santa-marta');
+        break;
+      default:
+        console.warn(`No route defined for ${name}`);
     }
-
   };
 
   return (
