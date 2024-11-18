@@ -1,10 +1,10 @@
 "use client";
+import OpcionesReposteria from '../../../components/components-repost/OpcionesReposteria';
 
-
-export default function Home() {
+export default function ReposteriaPage() {
   return (
     <div>
-      <h1>Resposteria</h1>
+      <OpcionesReposteria />
     </div>
   );
 }
