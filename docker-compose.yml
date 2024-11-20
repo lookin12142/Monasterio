@@ -51,16 +51,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-  
-  jenkins:
-    image: jenkins/jenkins:lts
-    ports:
-      - "8080:8080"
-      - "50000:50000"
-    volumes:
-      - jenkins_home:/var/jenkins_home
-    networks:
-      - app-network
 
 networks:
   app-network:
@@ -68,4 +58,4 @@ networks:
 
 volumes:
   postgres_data:
-  jenkins_home:
+

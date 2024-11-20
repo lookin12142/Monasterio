@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/app/context/authcontext';
 import { User } from '@/app/lib/interfaces';
 import Modal from './modal-create-user';
@@ -17,22 +17,29 @@ const UserList: React.FC = () => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [deleteUserModalOpen, setDeleteUserModalOpen] = useState(false);
 
-  const fetchUsers = useCallback(async () => {
-    try {
-      const users: User[] = await getUsers();
-      setUsers(users);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-    }
-  }, [getUsers]);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const usersData = await getUsers();
+        setUsers(usersData);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
+
+    fetchUsers();
+  }, []); 
 
   useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
+    if (selectedUser) {
+      setUserModalOpen(true);
+    }
+  }, [selectedUser]);
 
   const handleCreateUser = async (userData: Omit<User, 'createdAt' | 'updatedAt'>) => {
     try {
       const newUser: User = await createUser(userData);
+      newUser.modules = userData.modules;
       setUsers((prevUsers) => [...prevUsers, newUser]);
       setModalOpen(false);
     } catch (error) {
@@ -60,7 +67,7 @@ const UserList: React.FC = () => {
       console.error('Error updating user:', error);
     }
   };
-
+  
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">

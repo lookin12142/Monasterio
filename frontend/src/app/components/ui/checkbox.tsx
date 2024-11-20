@@ -1,29 +1,35 @@
 "use client";
-import React from "react";
+
+import React, { forwardRef } from "react";
 import { cn } from "@/app/lib/utils";
 
-type CheckboxProps = {
-  id: string;
-  name: string;
-  checked?: boolean;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  className?: string;
-};
+export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  onCheckedChange?: (checked: boolean) => void;
+}
 
-const Checkbox: React.FC<CheckboxProps> = ({ id, name, checked = false, onChange, className }) => {
-  return (
-    <input
-      type="checkbox"
-      id={id}
-      name={name}
-      checked={checked}
-      onChange={onChange} 
-      className={cn(
-        "rounded border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-offset-0 focus:ring-red-200 focus:ring-opacity-50",
-        className
-      )}
-    />
-  );
-};
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+  ({ className, onCheckedChange, onChange, ...props }, ref) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      onChange?.(event);
+      onCheckedChange?.(event.target.checked);
+    };
+
+    return (
+      <input
+        type="checkbox"
+        ref={ref}
+        className={cn(
+          "h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500",
+          "cursor-pointer transition-colors duration-200 ease-in-out",
+          className
+        )}
+        onChange={handleChange}
+        {...props}
+      />
+    );
+  }
+);
+
+Checkbox.displayName = "Checkbox";
 
 export default Checkbox;

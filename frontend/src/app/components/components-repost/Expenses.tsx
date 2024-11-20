@@ -15,7 +15,7 @@ interface Expense {
 
 export default function Egresses() {
   const [searchQuery, setSearchQuery] = useState('')
-  const [expenses, setExpenses] = useState<Expense[]>([
+  const [expenses] = useState<Expense[]>([
     { id: 1, product: 'Harina', quantity: 50, provider: 'Proveedor A', date: '2024-11-14', total: 250 },
     { id: 2, product: 'Azúcar', quantity: 25, provider: 'Proveedor B', date: '2024-11-14', total: 125 },
     { id: 3, product: 'Huevos', quantity: 100, provider: 'Proveedor C', date: '2024-11-14', total: 200 },
