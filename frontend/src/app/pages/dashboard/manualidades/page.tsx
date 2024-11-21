@@ -1,10 +1,10 @@
 "use client";
+import OpcionesManualidades from '../../../components/component-manual/OpcionesManual';
 
-
-export default function Home() {
+export default function ManualidadesPages() {
   return (
     <div>
-      <h1>Manualidad</h1>
+      <OpcionesManualidades/>
     </div>
   );
 }
