@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, Home, Plus, Trash } from "lucide-react";
-import Link from "next/link";
+import { Plus, Trash } from "lucide-react";
 
 interface Entry {
   id: number;
@@ -27,6 +26,9 @@ export default function Incomes() {
     total: 0,
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setNewEntry({ ...newEntry, [name]: value });
@@ -45,65 +47,48 @@ export default function Incomes() {
       date: newEntry.date,
       total: 0,
     });
+    setIsModalOpen(false); // Cerrar el modal después de agregar
   };
 
   const handleDeleteEntry = (id: number) => {
     setEntries(entries.filter((entry) => entry.id !== id));
   };
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Filtrar los ingresos según la búsqueda
+  const filteredEntries = entries.filter(entry => entry.product.toLowerCase().includes(searchQuery.toLowerCase()));
+
   return (
     <div className="min-h-screen w-full flex flex-col bg-gray-50">
-      {/* Header */}
-      <header className="w-full flex items-center gap-4 bg-red-500 p-4 text-white">
-        <button
-          onClick={() => window.history.back()}
-          className="text-white hover:text-white/90"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </button>
-        <h1 className="flex-1 text-center text-lg font-medium">
-          Repostería - Ingresos
-        </h1>
-        <Link href="/dashboard" className="text-white hover:text-white/90">
-          <Home className="h-5 w-5" />
-        </Link>
-      </header>
-
       {/* Main Content */}
       <main className="flex-grow flex flex-col p-4 bg-gray-50">
-        {/* Form Section */}
-        <div className="mb-8 bg-white rounded-lg shadow p-6 w-full">
-          <h2 className="mb-4 text-lg font-bold text-red-500">Registrar un Ingreso</h2>
-          <div className="flex flex-wrap gap-4">
-            <select
-              name="product"
-              value={newEntry.product}
-              onChange={handleInputChange}
-              className="flex-1 min-w-[200px] border border-gray-300 rounded p-2"
-            >
-              <option value="">Seleccionar producto</option>
-              <option value="Producto 1">Producto 1</option>
-              <option value="Producto 2">Producto 2</option>
-              <option value="Producto 3">Producto 3</option>
-            </select>
-
-            <input
-              type="number"
-              name="quantity"
-              value={newEntry.quantity}
-              onChange={handleInputChange}
-              placeholder="Cantidad"
-              className="w-24 border border-gray-300 rounded p-2"
-            />
-
-            <button
-              onClick={handleAddEntry}
-              className="flex items-center bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600"
-            >
-              <Plus className="mr-2 h-4 w-4" />
-              AGREGAR
-            </button>
-          </div>
+        {/* Search bar and Add button in the same row */}
+        <div className="mb-4 flex items-center space-x-4">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            placeholder="Buscar por producto..."
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+          <button
+            onClick={handleOpenModal}
+            className="flex items-center bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600"
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            AGREGAR NUEVO INGRESO
+          </button>
         </div>
 
         {/* Table Section */}
@@ -120,7 +105,7 @@ export default function Incomes() {
               </tr>
             </thead>
             <tbody>
-              {entries.map((entry) => (
+              {filteredEntries.map((entry) => (
                 <tr key={entry.id}>
                   <td className="border p-2">{entry.product}</td>
                   <td className="border p-2">{entry.quantity}</td>
@@ -140,6 +125,75 @@ export default function Incomes() {
           </table>
         </div>
       </main>
+
+      {/* Modal for adding new entry */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 z-50">
+          <div className="bg-white p-6 rounded-md w-96">
+            <h2 className="text-lg font-medium text-red-500">Registrar un Ingreso</h2>
+            <div className="mb-4">
+              <label className="block text-sm font-medium">Producto</label>
+              <input
+                type="text"
+                name="product"
+                value={newEntry.product}
+                onChange={handleInputChange}
+                className="w-full p-2 border border-gray-300 rounded"
+                placeholder="Escribe el nombre del producto"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium">Cantidad</label>
+              <input
+                type="number"
+                name="quantity"
+                value={newEntry.quantity}
+                onChange={handleInputChange}
+                placeholder="Cantidad"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium">Fecha</label>
+              <input
+                type="date"
+                name="date"
+                value={newEntry.date}
+                onChange={handleInputChange}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium">Precio Total</label>
+              <input
+                type="number"
+                value={newEntry.total}
+                onChange={(e) => setNewEntry({ ...newEntry, total: e.target.valueAsNumber })}
+                className="w-full p-2 border border-gray-300 rounded"
+                placeholder="Total"
+              />
+            </div>
+
+            <div className="flex justify-between">
+              <button
+                onClick={handleCloseModal}
+                className="bg-gray-500 text-white p-2 rounded"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleAddEntry}
+                className="bg-red-500 text-white p-2 rounded"
+              >
+                Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="w-full bg-gray-200 text-center p-4">

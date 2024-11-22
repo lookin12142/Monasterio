@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { BanknoteIcon, Coins, ShoppingBag, ChevronLeft, Home } from "lucide-react"; 
+import { ChevronLeft, Home } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import Incomes from "./Incomes";
 import Expenses from "./Expenses";
 import ProductList from "./ProductList";
 
 export default function OpcionesReposteria() {
+
   const [activeSection, setActiveSection] = useState<'incomes' | 'expenses' | 'products' | null>(null);
 
-  // Define el título dinámico del encabezado
   const getHeaderTitle = () => {
     switch (activeSection) {
       case "incomes":
@@ -24,19 +25,14 @@ export default function OpcionesReposteria() {
     }
   };
 
-  // Handlers para cambiar de sección
   const handleIngresosClick = () => setActiveSection("incomes");
   const handleEgresosClick = () => setActiveSection("expenses");
   const handleProductosClick = () => setActiveSection("products");
-
-  // Handler para regresar al menú principal
   const handleBackToMenu = () => setActiveSection(null);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header dinámico */}
-      <header className="flex items-center gap-2 bg-red-500 p-4 text-white">
-        {/* Botón de retroceso */}
+    <div className="bg-gray-100 min-h-screen">
+      <header className="bg-red-600 text-white px-4 py-3 flex justify-between items-center">
         {activeSection ? (
           <button onClick={handleBackToMenu} className="text-white hover:text-white/90">
             <ChevronLeft className="h-5 w-5" />
@@ -46,64 +42,51 @@ export default function OpcionesReposteria() {
             <ChevronLeft className="h-5 w-5" />
           </Link>
         )}
-        <h1 className="flex-1 text-center text-lg font-medium">{getHeaderTitle()}</h1>
+        <h1 className="text-lg font-semibold">{getHeaderTitle()}</h1>
         <Link href="/dashboard" className="text-white hover:text-white/90">
           <Home className="h-5 w-5" />
         </Link>
       </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto max-w-4xl p-4">
-        <h2 className="mb-8 text-center text-2xl font-bold">Opciones</h2>
-
-        <div className="grid gap-6 sm:grid-cols-1 lg:grid-cols-3">
-          {!activeSection && (
-            <>
-              <div onClick={handleIngresosClick} className="block">
-                <div className="transition-transform hover:scale-105 bg-white p-8 rounded-lg shadow-lg text-center h-64 flex flex-col justify-center">
-                  <div className="mb-4 rounded-full bg-red-500/10 p-4">
-                    <BanknoteIcon className="h-12 w-12 text-red-500" />
+      <main className="text-center py-8">
+        {!activeSection && (
+          <>
+            <h2 className="text-2xl font-bold mb-6">Opciones</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+              {[{ name: "Ingresos", icon: "/ingresos.png", onClick: handleIngresosClick },
+                { name: "Egresos", icon: "/egresos.png", onClick: handleEgresosClick },
+                { name: "Productos", icon: "/manualidades.png", onClick: handleProductosClick },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="bg-white w-full max-w-[250px] mx-auto p-20 rounded-lg shadow-lg flex flex-col items-center justify-center hover:shadow-xl transition-shadow cursor-pointer"
+                  onClick={item.onClick}
+                >
+                  <div className="flex justify-center items-center rounded-full mb-6">
+                    <Image src={item.icon} alt={item.name} width={70} height={70} />
                   </div>
-                  <span className="text-xl font-medium text-red-500">Ingresos</span>
+                  <h3 className="text-xl font-semibold text-red-600">{item.name}</h3>
                 </div>
-              </div>
-
-              <div onClick={handleEgresosClick} className="block">
-                <div className="transition-transform hover:scale-105 bg-white p-8 rounded-lg shadow-lg text-center h-64 flex flex-col justify-center">
-                  <div className="mb-4 rounded-full bg-red-500/10 p-4">
-                    <Coins className="h-12 w-12 text-red-500" />
-                  </div>
-                  <span className="text-xl font-medium text-red-500">Egresos</span>
-                </div>
-              </div>
-
-              <div onClick={handleProductosClick} className="block">
-                <div className="transition-transform hover:scale-105 bg-white p-8 rounded-lg shadow-lg text-center h-64 flex flex-col justify-center">
-                  <div className="mb-4 rounded-full bg-red-500/10 p-4">
-                    <ShoppingBag className="h-12 w-12 text-red-500" />
-                  </div>
-                  <span className="text-xl font-medium text-red-500">Productos</span>
-                </div>
-              </div>
-            </>
-          )}
-
-          {activeSection === "incomes" && (
-            <div className="w-full">
-              <Incomes />
+              ))}
             </div>
-          )}
-          {activeSection === "expenses" && (
-            <div className="w-full">
-              <Expenses />
-            </div>
-          )}
-          {activeSection === "products" && (
-            <div className="w-full">
-              <ProductList />
-            </div>
-          )}
-        </div>
+          </>
+        )}
+
+        {/* Contenido de las secciones activas */}
+        {activeSection === "incomes" && (
+          <div className="w-full">
+            <Incomes />
+          </div>
+        )}
+        {activeSection === "expenses" && (
+          <div className="w-full">
+            <Expenses />
+          </div>
+        )}
+        {activeSection === "products" && (
+          <div className="w-full">
+            <ProductList />
+          </div>
+        )}
       </main>
     </div>
   );

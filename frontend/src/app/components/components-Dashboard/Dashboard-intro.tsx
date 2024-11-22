@@ -4,7 +4,7 @@ import DepartmentSection from "../../components/components-Dashboard/DepartmentS
 import { useAuth } from '@/app/context/authcontext';
 
 const Home: React.FC = () => {
-  const { user } = useAuth();
+  const { user } = useAuth();   
 
   return (
     <div>

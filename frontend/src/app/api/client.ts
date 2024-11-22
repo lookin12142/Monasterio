@@ -1,7 +1,9 @@
+"use client";
+
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: process.env.API_PORT || 'http://localhost:3005',
+    baseURL: process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://localhost:3005',
 });
 
 api.interceptors.request.use(

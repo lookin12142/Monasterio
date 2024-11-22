@@ -1,14 +1,14 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
-import Product from './productmodel.js'; // Asegúrate de que la ruta sea correcta
+import Product from './productmodel.js'; 
 
 const Income = sequelize.define('Income', {
   id_producto: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: Product, // Referencia al modelo Product
-      key: 'id' // La clave primaria en Product
+      model: Product, 
+      key: 'id' 
     },
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE'

@@ -1,4 +1,3 @@
-// interfaces/interfaces.ts
 
 export type ModuleKeys = 'administrativo' | 'ventas' | 'alquileres';
 

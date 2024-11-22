@@ -28,7 +28,7 @@ const UserList: React.FC = () => {
     };
 
     fetchUsers();
-  }, []); 
+  }, [getUsers]); 
 
   useEffect(() => {
     if (selectedUser) {

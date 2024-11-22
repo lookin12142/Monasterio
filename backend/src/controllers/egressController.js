@@ -1,6 +1,5 @@
 import Egress from '../models/egressmodel.js';
 
-// Crear un nuevo egreso
 export const createEgress = async (req, res) => {
   const { type } = req.params;
   const { name, amount, supplier, date, total_price } = req.body;
@@ -13,7 +12,6 @@ export const createEgress = async (req, res) => {
   }
 };
 
-// Obtener todos los egresos de un tipo específico
 export const getEgresses = async (req, res) => {
   const { type } = req.params;
 
@@ -25,7 +23,6 @@ export const getEgresses = async (req, res) => {
   }
 };
 
-// Eliminar un egreso específico
 export const deleteEgress = async (req, res) => {
   const { type, id } = req.params;
 
@@ -41,7 +38,6 @@ export const deleteEgress = async (req, res) => {
   }
 };
 
-// Actualizar un egreso específico
 export const updateEgress = async (req, res) => {
   const { type, id } = req.params;
   const { name, amount, supplier, date, total_price } = req.body;
