@@ -10,35 +10,26 @@ import Expenses from "./Expenses";
 import ProductList from "./ProductList";
 
 
-export default function OpcionesReposteria() {
-<<<<<<< HEAD
-
-  const [activeSection, setActiveSection] = useState<'incomes' | 'expenses' | 'products' | null>(null);
-
-=======
+export default function OpcionesManualidades() {
   // Estado para la sección activa
   const [activeSection, setActiveSection] = useState<'incomes' | 'expenses' | 'products' | null>(null);
 
 
   // Función para obtener el título dinámico del encabezado
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
   const getHeaderTitle = () => {
     switch (activeSection) {
       case "incomes":
-        return "Repostería - Ingresos";
+        return "Manualidades - Ingresos";
       case "expenses":
-        return "Repostería - Egresos";
+        return "Manualidades - Egresos";
       case "products":
-        return "Repostería - Productos";
+        return "Manualidades - Productos";
       default:
-        return "Ventas - Repostería";
+        return "Ventas - Manualidades";
     }
   };
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
   const handleIngresosClick = () => setActiveSection("incomes");
   const handleEgresosClick = () => setActiveSection("expenses");
   const handleProductosClick = () => setActiveSection("products");
@@ -69,11 +60,7 @@ export default function OpcionesReposteria() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
               {[{ name: "Ingresos", icon: "/ingresos.png", onClick: handleIngresosClick },
                 { name: "Egresos", icon: "/egresos.png", onClick: handleEgresosClick },
-<<<<<<< HEAD
-                { name: "Productos", icon: "/manualidades.png", onClick: handleProductosClick },
-=======
                 { name: "Productos", icon: "/productos.png", onClick: handleProductosClick },
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
               ].map((item, index) => (
                 <div
                   key={index}
@@ -90,10 +77,7 @@ export default function OpcionesReposteria() {
           </>
         )}
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
         {/* Contenido de las secciones activas */}
         {activeSection === "incomes" && (
           <div className="w-full">

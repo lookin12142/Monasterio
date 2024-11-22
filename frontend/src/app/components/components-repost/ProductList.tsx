@@ -1,5 +1,6 @@
 'use client';
 
+<<<<<<< HEAD
 import { useState } from 'react';
 import { Plus, X, Trash2 } from 'lucide-react';
 import Image from 'next/image';
@@ -10,6 +11,18 @@ interface Product {
   price: number;
   stock: number;
   image: string;
+=======
+import { useState } from 'react'
+import { Plus, X } from 'lucide-react'
+import Image from 'next/image'
+
+interface Product {
+  id: number
+  name: string
+  price: number
+  stock: number
+  image: string // La imagen será una cadena en base64
+>>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
 }
 
 export default function Component() {
@@ -19,14 +32,22 @@ export default function Component() {
       name: 'Galletas con Chispas',
       price: 4.6,
       stock: 40,
+<<<<<<< HEAD
       image: '/collar.png',
+=======
+      image: '/galleta.png',
+>>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
     },
     {
       id: 2,
       name: 'Galletas de Avena',
       price: 4.6,
       stock: 40,
+<<<<<<< HEAD
       image: '/cuadro.png',
+=======
+      image: '/chispas.jpg',
+>>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
     },
     {
       id: 3,
@@ -35,6 +56,7 @@ export default function Component() {
       stock: 40,
       image: '/fondo-login.png',
     },
+<<<<<<< HEAD
   ]);
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -106,6 +128,74 @@ export default function Component() {
       };
 
       reader.readAsDataURL(file);
+=======
+  ])
+
+  const [stock, setStock] = useState<number | null>(null)
+  const [productName, setProductName] = useState<string | null>(null)
+  const [productPrice, setProductPrice] = useState<number | null>(null)
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [previewImage, setPreviewImage] = useState<string | null>(null)
+  const [editingProductId, setEditingProductId] = useState<number | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null
+    setImageFile(file)
+
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        setPreviewImage(e.target?.result as string)
+      }
+      reader.readAsDataURL(file) // Convertir imagen a base64
+    }
+  }
+
+  const handleAddOrUpdateProduct = () => {
+    if (editingProductId !== null) {
+      // Actualizar producto existente
+      setProducts(products.map(product =>
+        product.id === editingProductId
+          ? {
+              ...product,
+              name: productName || product.name, // Mantener valores existentes si no se cambian
+              price: productPrice !== null ? productPrice : product.price,
+              stock: stock !== null ? stock : product.stock,
+              image: previewImage || product.image,
+            }
+          : product
+      ))
+      setEditingProductId(null)
+    } else {
+      // Validar campos necesarios para un nuevo producto
+      if (!productName || productPrice === null || stock === null || !imageFile) return
+
+      // Agregar nuevo producto
+      const newProduct: Product = {
+        id: products.length + 1,
+        name: productName,
+        price: productPrice,
+        stock: stock,
+        image: previewImage || '/placeholder.svg',
+      }
+      setProducts([...products, newProduct])
+    }
+
+    resetForm()
+    setIsModalOpen(false)
+  }
+
+  const handleEditProduct = (id: number) => {
+    const product = products.find((product) => product.id === id)
+    if (product) {
+      setProductName(product.name)
+      setProductPrice(product.price)
+      setStock(product.stock)
+      setPreviewImage(product.image)
+      setEditingProductId(product.id)
+      setIsModalOpen(true)
+>>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
     }
   };
 
@@ -121,9 +211,18 @@ export default function Component() {
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const resetForm = () => {
+    setProductName(null)
+    setProductPrice(null)
+    setStock(null)
+    setImageFile(null)
+    setPreviewImage(null)
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 w-full">
       <main className="flex-grow w-full p-4">
+<<<<<<< HEAD
         <div className="mb-8 rounded-lg bg-white p-4 shadow-sm w-full">
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-medium">Lista de Productos</h2>
@@ -144,11 +243,25 @@ export default function Component() {
               className="w-full p-2 border border-gray-300 rounded-md"
             />
           </div>
+=======
+        <div className="mb-8">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-md flex items-center"
+          >
+            <Plus className="mr-1 h-4 w-4" />
+            AGREGAR PRODUCTO
+          </button>
+>>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
         </div>
 
         <div className="rounded-lg bg-white p-4 shadow-sm w-full">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+<<<<<<< HEAD
             {filteredProducts.map((product) => (
+=======
+            {products.map((product) => (
+>>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
               <div
                 key={product.id}
                 className="overflow-hidden bg-white shadow-md rounded-md w-[350px] h-[450px]"
@@ -172,7 +285,17 @@ export default function Component() {
                 <div className="flex gap-2 p-4 pt-0">
                   <button
                     className="flex-1 bg-red-500 text-white p-2 rounded-md"
+<<<<<<< HEAD
                     onClick={() => handleEditProduct(product)}
+=======
+                    onClick={() => setProducts(products.filter((p) => p.id !== product.id))}
+                  >
+                    Eliminar
+                  </button>
+                  <button
+                    className="flex-1 border border-gray-300 p-2 rounded-md"
+                    onClick={() => handleEditProduct(product.id)}
+>>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
                   >
                     Editar
                   </button>
@@ -190,6 +313,7 @@ export default function Component() {
         </div>
       </main>
 
+<<<<<<< HEAD
       {modalOpen && (
         <Modal
           title="Agregar Producto"
@@ -226,6 +350,63 @@ export default function Component() {
             onImageUpload={handleImageUpload}
           />
         </Modal>
+=======
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-bold">{editingProductId ? 'Editar Producto' : 'Agregar Producto'}</h3>
+              <button onClick={() => setIsModalOpen(false)}>
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <input
+              placeholder="Nombre del producto"
+              value={productName || ''}
+              onChange={(e) => setProductName(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md mb-4"
+            />
+            <input
+              type="number"
+              placeholder="Precio del producto"
+              value={productPrice !== null ? productPrice : ''}
+              onChange={(e) => setProductPrice(Number(e.target.value))}
+              className="w-full p-2 border border-gray-300 rounded-md mb-4"
+            />
+            <input
+              type="number"
+              placeholder="Stock"
+              value={stock !== null ? stock : ''}
+              onChange={(e) => setStock(Number(e.target.value))}
+              className="w-full p-2 border border-gray-300 rounded-md mb-4"
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="w-full p-2 border border-gray-300 rounded-md mb-4"
+            />
+            {previewImage && (
+              <div className="mb-4">
+                <Image
+                  src={previewImage}
+                  alt="Vista previa"
+                  width={200}
+                  height={200}
+                  className="object-cover rounded-md"
+                />
+              </div>
+            )}
+            <button
+              onClick={handleAddOrUpdateProduct}
+              className="w-full bg-red-500 hover:bg-red-600 text-white p-2 rounded-md"
+            >
+              {editingProductId ? 'ACTUALIZAR' : 'AGREGAR'}
+            </button>
+          </div>
+        </div>
+>>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
       )}
 
       <footer className="bg-gray-200 p-4 text-center w-full">

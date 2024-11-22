@@ -2,12 +2,8 @@
 
 
 import { useState } from 'react'
-<<<<<<< HEAD
-import {Plus, Search, Trash } from 'lucide-react'
-=======
 import {  Plus, Search, Trash } from 'lucide-react'
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
 
 interface Expense {
   id: number
@@ -40,19 +36,13 @@ export default function Egresses() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isEditMode, setIsEditMode] = useState(false)
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
   // Filtrar egresos por búsqueda
   const filteredExpenses = expenses.filter((expense) =>
     expense.product.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
   // Abrir modal para agregar o editar egreso
   const handleOpenModal = (expense?: Expense) => {
     if (expense) {
@@ -74,19 +64,13 @@ export default function Egresses() {
     setIsModalOpen(true)
   }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
   // Cerrar modal
   const handleCloseModal = () => {
     setIsModalOpen(false)
   }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
   // Agregar un nuevo egreso
   const handleAddExpense = () => {
     if (
@@ -102,10 +86,7 @@ export default function Egresses() {
     }
   }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
   // Editar un egreso
   const handleEditExpense = () => {
     if (
@@ -124,30 +105,21 @@ export default function Egresses() {
     }
   }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
   // Eliminar egresos seleccionados
   const handleDeleteSelected = () => {
     setExpenses(expenses.filter((expense) => !selectedExpenses.includes(expense.id)))
     setSelectedExpenses([])
   }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
   // Seleccionar/unselect un egreso
   const handleSelectExpense = (id: number) => {
     setSelectedExpenses((prev) =>
       prev.includes(id) ? prev.filter((selectedId) => selectedId !== id) : [...prev, id]
     )
   }
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -155,10 +127,7 @@ export default function Egresses() {
         <div className="mx-auto max-w-screen-xl p-4 mb-8 rounded-lg bg-white shadow-sm">
           <h2 className="mb-4 text-lg font-medium">Registrar y gestionar egresos</h2>
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
             <div className="flex gap-2">
               <h3 className="mb-2 text-sm font-medium">Buscar Egresos</h3>
@@ -177,10 +146,7 @@ export default function Egresses() {
               </div>
             </div>
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
             <div className="flex gap-2">
               <h3 className="mb-2 text-sm font-medium">Gestionar Egresos</h3>
               <div className="flex gap-2">
@@ -207,10 +173,7 @@ export default function Egresses() {
         <div className="mx-auto max-w-screen-xl rounded-lg bg-white p-4 shadow-sm">
           <h2 className="mb-4 text-lg font-medium">Lista de Egresos</h2>
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
           <table className="min-w-full table-auto">
             <thead>
               <tr>
@@ -266,10 +229,7 @@ export default function Egresses() {
         </div>
       </main>
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 z-50">
           <div className="bg-white p-6 rounded-md w-96">
