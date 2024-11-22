@@ -3,13 +3,8 @@
   import DepartmentSection from "../../components/components-Dashboard/DepartmentSection";
   import { useAuth } from '@/app/context/authcontext';
 
-<<<<<<< HEAD
-const Home: React.FC = () => {
-  const { user } = useAuth();   
-=======
   const Home: React.FC = () => {
     const { user } = useAuth();
->>>>>>> 2d3dbb8bc810c23443a257b38d70d3c32503b917
 
     return (
       <div>
