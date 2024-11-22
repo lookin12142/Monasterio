@@ -10,7 +10,7 @@ import Expenses from "./Expenses";
 import ProductList from "./ProductList";
 
 
-export default function OpcionesReposteria() {
+export default function OpcionesManualidades() {
   // Estado para la sección activa
   const [activeSection, setActiveSection] = useState<'incomes' | 'expenses' | 'products' | null>(null);
 
@@ -19,13 +19,13 @@ export default function OpcionesReposteria() {
   const getHeaderTitle = () => {
     switch (activeSection) {
       case "incomes":
-        return "Repostería - Ingresos";
+        return "Manualidades - Ingresos";
       case "expenses":
-        return "Repostería - Egresos";
+        return "Manualidades - Egresos";
       case "products":
-        return "Repostería - Productos";
+        return "Manualidades - Productos";
       default:
-        return "Ventas - Repostería";
+        return "Ventas - Manualidades";
     }
   };
 

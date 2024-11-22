@@ -1,9 +1,7 @@
 "use client";
 
-
 import { useState } from "react";
 import { Plus, Trash } from "lucide-react";
-
 
 interface Entry {
   id: number;
@@ -13,14 +11,12 @@ interface Entry {
   total: number;
 }
 
-
 export default function Incomes() {
   const [entries, setEntries] = useState<Entry[]>([
-    { id: 1, product: "Producto 1", quantity: 5, date: "2024-11-14", total: 100 },
-    { id: 2, product: "Producto 2", quantity: 3, date: "2024-11-14", total: 60 },
-    { id: 3, product: "Producto 3", quantity: 2, date: "2024-11-14", total: 40 },
+    { id: 1, product: "Pinturas Acrílicas", quantity: 5, date: "2024-11-14", total: 100 },
+    { id: 2, product: "Pinceles", quantity: 3, date: "2024-11-14", total: 60 },
+    { id: 3, product: "Hilos para Bordado", quantity: 2, date: "2024-11-14", total: 40 },
   ]);
-
 
   const [newEntry, setNewEntry] = useState<Entry>({
     id: entries.length + 1,
@@ -30,16 +26,13 @@ export default function Incomes() {
     total: 0,
   });
 
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setNewEntry({ ...newEntry, [name]: value });
   };
-
 
   const handleAddEntry = () => {
     if (!newEntry.product || newEntry.quantity <= 0) {
@@ -57,30 +50,24 @@ export default function Incomes() {
     setIsModalOpen(false); // Cerrar el modal después de agregar
   };
 
-
   const handleDeleteEntry = (id: number) => {
     setEntries(entries.filter((entry) => entry.id !== id));
   };
-
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
-
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
-
   // Filtrar los ingresos según la búsqueda
   const filteredEntries = entries.filter(entry => entry.product.toLowerCase().includes(searchQuery.toLowerCase()));
-
 
   return (
     <div className="min-h-screen w-full flex flex-col bg-gray-50">
@@ -103,7 +90,6 @@ export default function Incomes() {
             AGREGAR NUEVO INGRESO
           </button>
         </div>
-
 
         {/* Table Section */}
         <div className="bg-white rounded-lg shadow p-6 w-full">
@@ -140,7 +126,6 @@ export default function Incomes() {
         </div>
       </main>
 
-
       {/* Modal for adding new entry */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 z-50">
@@ -158,7 +143,6 @@ export default function Incomes() {
               />
             </div>
 
-
             <div className="mb-4">
               <label className="block text-sm font-medium">Cantidad</label>
               <input
@@ -171,7 +155,6 @@ export default function Incomes() {
               />
             </div>
 
-
             <div className="mb-4">
               <label className="block text-sm font-medium">Fecha</label>
               <input
@@ -183,7 +166,6 @@ export default function Incomes() {
               />
             </div>
 
-
             <div className="mb-4">
               <label className="block text-sm font-medium">Precio Total</label>
               <input
@@ -194,7 +176,6 @@ export default function Incomes() {
                 placeholder="Total"
               />
             </div>
-
 
             <div className="flex justify-between">
               <button
@@ -214,14 +195,10 @@ export default function Incomes() {
         </div>
       )}
 
-
       {/* Footer */}
       <footer className="w-full bg-gray-200 text-center p-4">
-        <p>&copy; 2024 Repostería | Todos los derechos reservados</p>
+        <p>&copy; 2024 Manualidades | Todos los derechos reservados</p>
       </footer>
     </div>
   );
 }
-
-
-

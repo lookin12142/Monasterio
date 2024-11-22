@@ -7,7 +7,6 @@ import Link from "next/link";
 import Image from "next/image";
 import Incomes from "./Incomes";
 import Expenses from "./Expenses";
-import ProductList from "./ProductList";
 
 
 export default function OpcionesReposteria() {
@@ -19,20 +18,17 @@ export default function OpcionesReposteria() {
   const getHeaderTitle = () => {
     switch (activeSection) {
       case "incomes":
-        return "Repostería - Ingresos";
+        return "Misa - Ingresos";
       case "expenses":
-        return "Repostería - Egresos";
-      case "products":
-        return "Repostería - Productos";
+        return "Misa - Egresos";
       default:
-        return "Ventas - Repostería";
+        return "Misa - Repostería";
     }
   };
 
 
   const handleIngresosClick = () => setActiveSection("incomes");
   const handleEgresosClick = () => setActiveSection("expenses");
-  const handleProductosClick = () => setActiveSection("products");
   const handleBackToMenu = () => setActiveSection(null);
 
 
@@ -60,7 +56,6 @@ export default function OpcionesReposteria() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
               {[{ name: "Ingresos", icon: "/ingresos.png", onClick: handleIngresosClick },
                 { name: "Egresos", icon: "/egresos.png", onClick: handleEgresosClick },
-                { name: "Productos", icon: "/productos.png", onClick: handleProductosClick },
               ].map((item, index) => (
                 <div
                   key={index}
@@ -87,11 +82,6 @@ export default function OpcionesReposteria() {
         {activeSection === "expenses" && (
           <div className="w-full">
             <Expenses />
-          </div>
-        )}
-        {activeSection === "products" && (
-          <div className="w-full">
-            <ProductList />
           </div>
         )}
       </main>
